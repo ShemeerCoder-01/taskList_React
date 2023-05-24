@@ -39,7 +39,12 @@ function Modal({ flagVal,setarr,arr,currEle}) {
         if(taskName === '' || priority === '' || date === ''){
             alert("Please fill all the fields before clicking the Add Task button");
             return;
-        }else{
+        }
+        else if(taskName.length > 13){
+            alert("TaskName : Maximum 12 characters allowed");
+            return;
+        }
+        else{
         setarr([...arr,{ id: arr.length + 1, Name: taskName, Priority: priority, Date: date }]);
         flagVal(false);
         }
