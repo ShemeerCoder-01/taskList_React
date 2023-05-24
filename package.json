@@ -1,7 +1,7 @@
 {
   "name": "kanbanboard",
   "version": "0.1.0",
-  "homepage": "https://ShemeerCoder-01.github.io/Task_list_React",
+  "homepage": "https://ShemeerCoder-01.github.io/Task_List_React",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
