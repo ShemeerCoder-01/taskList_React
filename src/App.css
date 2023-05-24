@@ -1,0 +1,13 @@
+body{
+    overflow-x: hidden;
+}
+.btn{
+    width: 20%;
+    margin:2% 41%;
+    font-size: 1.25rem;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    border-color: transparent;
+    background-color: white;
+    color: black;
+}
