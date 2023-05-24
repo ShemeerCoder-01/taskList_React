@@ -24,6 +24,14 @@ function Modal({ flagVal,setarr,arr,currEle}) {
             new_arr.push({ id: new_arr.length + 1, Name: taskName, Priority: priority, Date: date });
             setarr(new_arr);
         }
+        else if(taskName === '' || priority === '' || date === ''){
+            alert("Please fill all the fields before clicking the Edit Task button");
+            return;
+        }
+        else if(taskName.length > 12){
+            alert("TaskName : Maximum 12 characters allowed");
+            return;
+        }
         else{
         new_arr.splice(idx,1);
         new_arr.push({ id: new_arr.length + 1, Name: taskName, Priority: priority, Date: date })
@@ -40,7 +48,7 @@ function Modal({ flagVal,setarr,arr,currEle}) {
             alert("Please fill all the fields before clicking the Add Task button");
             return;
         }
-        else if(taskName.length > 13){
+        else if(taskName.length > 12){
             alert("TaskName : Maximum 12 characters allowed");
             return;
         }
