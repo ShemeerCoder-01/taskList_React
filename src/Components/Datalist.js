@@ -64,12 +64,12 @@ function Datalist({ status, arr,setArr, setCurrEle }) {
               return (<div key={keyGenerator()} className='item inProgress'>
                 <p>{obj.Name}</p>
                 <p>{obj.Date}</p>
-                <div>
+                <div className='icons'>
                   <span onClick={() => {
                     status(true);
                     setCurrEle(obj);
                   }} className='icon'><FaEdit /></span>
-                  <span className='icon'><FaTimes /></span>
+                  <span className='icon' onClick={()=>deleteItem(obj.id)}><FaTimes /></span>
                 </div>
               </div>)
             } else {
@@ -86,12 +86,12 @@ function Datalist({ status, arr,setArr, setCurrEle }) {
               return (<div key={keyGenerator()} className='item completed'>
                 <p>{obj.Name}</p>
                 <p>{obj.Date}</p>
-                <div>
+                <div className='icons'>
                   <span onClick={() => {
                     status(true);
                     setCurrEle(obj);
                   }} className='icon'><FaEdit /></span>
-                  <span className='icon'><FaTimes /></span>
+                  <span className='icon' onClick={()=>deleteItem(obj.id)}><FaTimes /></span>
                 </div>
               </div>)
             } else {

@@ -11,18 +11,26 @@ function Modal({ flagVal,setarr,arr,currEle}) {
     console.log(currEle.id - 1);
 
     function editFnc(){
+        
         let new_arr = arr;
-        let idx;
+        let idx=-1;
         for(let i = 0; i < new_arr.length; i++){
             if(new_arr[i].id === currEle.id){
                 idx = i;
                 break;
             }
         }
+        if(idx === -1){
+            new_arr.push({ id: new_arr.length + 1, Name: taskName, Priority: priority, Date: date });
+            setarr(new_arr);
+        }
+        else{
         new_arr.splice(idx,1);
         new_arr.push({ id: new_arr.length + 1, Name: taskName, Priority: priority, Date: date })
         setarr(new_arr);
+        }
         flagVal(false);
+        
     }
 
    
