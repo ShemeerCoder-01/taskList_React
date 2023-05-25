@@ -5,10 +5,18 @@ function Modal({ flagVal, setarr, arr, currEle }) {
     let [taskName, setTaskName] = useState('');
     let [priority, setPriority] = useState('');
     let [date, setDate] = useState('');
-    let [curr,setCurr] = useState(-1);
-    // console.log(currPriority);
+    
     console.log(priority);
     console.log(currEle.id - 1);
+
+    function keyGenerator() {
+        let str = 'abcdefghijklmnopqrstuvwxyz';
+        let res = '';
+        for (let i = 0; i < 7; i++) {
+          res += str.charAt(Math.random() * 5);
+        }
+        return res;
+      }
 
     function editFnc() {
 
@@ -18,11 +26,11 @@ function Modal({ flagVal, setarr, arr, currEle }) {
             if (new_arr[i].id === currEle.id) {
                 console.log("arr id",new_arr[i].id ,"currele id",currEle.id);
                 idx = i;
-                setCurr(i);
+                // setCurr(i);
                 break;
             }
         }
-        console.log("idx is",idx,"curr is",curr);
+        console.log("idx is",idx,"curr is",currEle.id);
         if (idx === -1) {
             if (taskName.length > 12) {
                 alert("TaskName : Maximum 12 characters allowed");
@@ -33,7 +41,7 @@ function Modal({ flagVal, setarr, arr, currEle }) {
                 return;
             }
             else {
-                new_arr.push({ id: new_arr.length + 1, Name: taskName, Priority: priority, Date: date });
+                new_arr.push({ id: keyGenerator(), Name: taskName, Priority: priority, Date: date });
                 setarr(new_arr);
                 flagVal(false);
             }
@@ -43,17 +51,15 @@ function Modal({ flagVal, setarr, arr, currEle }) {
             //  idx = curr !== -1?curr:idx;
             if (taskName.length > 12) {
                 alert("TaskName : Maximum 12 characters allowed");
-                setCurr(idx);
                 return
             }
             else if (taskName === '' || priority === '' || date === '') {
                 alert("Please fill all the fields before clicking the Edit Task button");
-                setCurr(idx);
                 return
             }
             else {
-                new_arr.splice(curr, 1);
-                new_arr.push({ id: new_arr.length + 1, Name: taskName, Priority: priority, Date: date })
+                new_arr.splice(idx, 1);
+                new_arr.push({ id: keyGenerator(), Name: taskName, Priority: priority, Date: date })
                 setarr(new_arr);
                 flagVal(false);
             }
@@ -74,7 +80,7 @@ function Modal({ flagVal, setarr, arr, currEle }) {
             return;
         }
         else {
-            setarr([...arr, { id: arr.length + 1, Name: taskName, Priority: priority, Date: date }]);
+            setarr([...arr, { id: keyGenerator(), Name: taskName, Priority: priority, Date: date }]);
             flagVal(false);
         }
     }
