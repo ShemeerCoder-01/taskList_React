@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React,{ useEffect, useState } from 'react';
 import './Datalist.css';
 import { FaEdit, FaTimes } from "react-icons/fa";
 
@@ -6,6 +6,7 @@ function Datalist({ status, arr,setArr, setCurrEle }) {
 
   let [deleteStat,setDeleteStat] = useState(false);
 
+  // function to generate unique key for each elements
   function keyGenerator() {
     let str = 'abcdefghijklmnopqrstuvwxyz';
     let res = '';
@@ -14,10 +15,12 @@ function Datalist({ status, arr,setArr, setCurrEle }) {
     }
     return res;
   }
+  // here useEffect used for re-rendering the component after deleting an element.
   useEffect(()=>{
     setDeleteStat(false);
   },[deleteStat]);
  
+  // function to delete the selected element 
   function deleteItem(Id){
     let new_arr = arr;
     let idx=-1;
