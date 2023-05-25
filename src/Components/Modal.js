@@ -1,60 +1,81 @@
-import React, {  useState } from 'react';
+import React, { useState } from 'react';
 import './Modal.css';
 
-function Modal({ flagVal,setarr,arr,currEle}) {
+function Modal({ flagVal, setarr, arr, currEle }) {
     let [taskName, setTaskName] = useState('');
     let [priority, setPriority] = useState('');
     let [date, setDate] = useState('');
-    // let [currPriority, setCurrPriority] = useState(currEle.Priority);
+    let [curr,setCurr] = useState(-1);
     // console.log(currPriority);
     console.log(priority);
     console.log(currEle.id - 1);
 
-    function editFnc(){
-        
+    function editFnc() {
+
         let new_arr = arr;
-        let idx=-1;
-        for(let i = 0; i < new_arr.length; i++){
-            if(new_arr[i].id === currEle.id){
+        let idx = -1;
+        for (let i = 0; i < new_arr.length; i++) {
+            if (new_arr[i].id === currEle.id) {
+                console.log("arr id",new_arr[i].id ,"currele id",currEle.id);
                 idx = i;
+                setCurr(i);
                 break;
             }
         }
-        if(idx === -1){
-            new_arr.push({ id: new_arr.length + 1, Name: taskName, Priority: priority, Date: date });
-            setarr(new_arr);
+        console.log("idx is",idx,"curr is",curr);
+        if (idx === -1) {
+            if (taskName.length > 12) {
+                alert("TaskName : Maximum 12 characters allowed");
+                return;
+            }
+            else if (taskName === '' || priority === '' || date === '') {
+                alert("Please fill all the fields before clicking the Edit Task button");
+                return;
+            }
+            else {
+                new_arr.push({ id: new_arr.length + 1, Name: taskName, Priority: priority, Date: date });
+                setarr(new_arr);
+                flagVal(false);
+            }
         }
-        else if(taskName === '' || priority === '' || date === ''){
-            alert("Please fill all the fields before clicking the Edit Task button");
-            return;
+        else {
+            // new_arr.splice(idx, 1);
+            //  idx = curr !== -1?curr:idx;
+            if (taskName.length > 12) {
+                alert("TaskName : Maximum 12 characters allowed");
+                setCurr(idx);
+                return
+            }
+            else if (taskName === '' || priority === '' || date === '') {
+                alert("Please fill all the fields before clicking the Edit Task button");
+                setCurr(idx);
+                return
+            }
+            else {
+                new_arr.splice(curr, 1);
+                new_arr.push({ id: new_arr.length + 1, Name: taskName, Priority: priority, Date: date })
+                setarr(new_arr);
+                flagVal(false);
+            }
         }
-        else if(taskName.length > 12){
-            alert("TaskName : Maximum 12 characters allowed");
-            return;
-        }
-        else{
-        new_arr.splice(idx,1);
-        new_arr.push({ id: new_arr.length + 1, Name: taskName, Priority: priority, Date: date })
-        setarr(new_arr);
-        }
-        flagVal(false);
-        
+        // flagVal(false);
+
     }
 
-   
 
-    function clickHandler(){
-        if(taskName === '' || priority === '' || date === ''){
+
+    function clickHandler() {
+        if (taskName === '' || priority === '' || date === '') {
             alert("Please fill all the fields before clicking the Add Task button");
             return;
         }
-        else if(taskName.length > 12){
+        else if (taskName.length > 12) {
             alert("TaskName : Maximum 12 characters allowed");
             return;
         }
-        else{
-        setarr([...arr,{ id: arr.length + 1, Name: taskName, Priority: priority, Date: date }]);
-        flagVal(false);
+        else {
+            setarr([...arr, { id: arr.length + 1, Name: taskName, Priority: priority, Date: date }]);
+            flagVal(false);
         }
     }
 
@@ -69,7 +90,7 @@ function Modal({ flagVal,setarr,arr,currEle}) {
 
                 <hr />
                 <div className='form'>
-                    
+
                     <input value={taskName} onChange={(e) => setTaskName(e.target.value)} type='text' placeholder='Task Name' />
                     <select onChange={(e) => setPriority(e.target.value)}>
                         <option value=''>Priority</option>
@@ -79,11 +100,11 @@ function Modal({ flagVal,setarr,arr,currEle}) {
                     </select>
                     <input value={date} onChange={(e) => setDate(e.target.value)} type='date' />
                     <div className='btns'>
-                    <button onClick={clickHandler}>Add Task</button>
-                    <button onClick={editFnc}>Edit Task</button>
+                        <button onClick={clickHandler}>Add Task</button>
+                        <button onClick={editFnc}>Edit Task</button>
                     </div>
-                    
-                   
+
+
                 </div>
             </div>
         </div>
@@ -95,4 +116,3 @@ export default Modal;
 
 
 
-  
